@@ -7,7 +7,7 @@ import { ChatPromptTemplate,
   HumanMessagePromptTemplate,
   MessagesPlaceholder,
   SystemMessagePromptTemplate, } from "langchain/prompts";
-import { ConversationChain } from "langchain/chains";
+import { ConversationChain, ConversationalRetrievalQAChain } from "langchain/chains";
 import { BufferMemory } from "langchain/memory";  
 import { describe } from './bot'
 
@@ -54,7 +54,7 @@ function getMemos(): MEMO[] {
 export const memoLoading = ref<boolean>(false)
 export async function handleInit() {
   memoLoading.value = true
-  describe.value = '阅读...'
+  describe.value = '阅读Memo...'
   const memos = getMemos()
   if (memos.length < 1) {
     memoLoading.value = false
@@ -95,12 +95,18 @@ export async function qaChat(question: string): Promise<string> {
     describe.value = 'memo加载错误'
     return ''
   }
-  const storeDocs = await store.memoStore.similaritySearch(question, 2)
-  const memos = storeDocs.map(doc => doc.pageContent).join(',')
+  // const storeDocs = await store.memoStore.similaritySearch(question, 2)
+  // const memos = storeDocs.map(doc => doc.pageContent).join(',')
   
-  const response = await store.chain!.call({
-    question,
-    memos,
-  });
+  // const response = await store.chain!.call({
+  //   question,
+  //   memos,
+  // });
+  const chain = ConversationalRetrievalQAChain.fromLLM(
+    store.model as ChatOpenAI,
+    store.memoStore.asRetriever()
+  );
+  const response = await chain.call({ question, chat_history: [] });
+
   return response.response
 }

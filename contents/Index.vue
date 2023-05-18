@@ -40,7 +40,7 @@ async function saveKey(formEl: any) {
   await formEl.validate((valid) => {
     if (valid) {
       setOpenAIApiKey(formData.openAIApiKey)
-      describe.value = '我会保管好的！'
+      describe.value = '我不会告诉别人0.0'
       noKey.value = false
     }
   })
