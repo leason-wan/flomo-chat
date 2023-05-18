@@ -1,0 +1,58 @@
+.el-dialog__header {
+  display: none;
+}
+
+.markdown-body {
+  background-color: transparent;
+  font-size: 14px;
+}
+
+p {
+  white-space: pre-wrap;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+pre code,
+pre tt {
+  line-height: 1.65;
+}
+
+.highlight pre,
+pre {
+  background-color: #fff;
+}
+
+code.hljs {
+  padding: 0;
+}
+
+.code-block-wrapper {
+  position: relative;
+  padding-top: 24px;
+}
+.code-block-header {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  width: 100%;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #b3b3b3;
+}
+.code-block__copy {
+  cursor: pointer;
+  margin-left: 0.5rem;
+  user-select: none;
+}
+.code-block_.code-block__copy {
+  color: #65a665;
+}
